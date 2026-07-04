@@ -1,43 +1,43 @@
 # Workshop 1 — MediaPipe Hand & Pose Landmark Demos
 
-Real-time hand and body pose landmark detection using [MediaPipe](https://ai.google.dev/edge/mediapipe/solutions/guide) Tasks Vision API and OpenCV, reading live video from your webcam.
+โปรแกรมสาธิตการตรวจจับจุดสำคัญ (landmark) ของมือและท่าทางร่างกายแบบเรียลไทม์ โดยใช้ [MediaPipe](https://ai.google.dev/edge/mediapipe/solutions/guide) Tasks Vision API ร่วมกับ OpenCV อ่านวิดีโอสดจากกล้องเว็บแคม
 
-## Features
+## คุณสมบัติ
 
-- **`hand_demo.py`** — detects up to 2 hands and draws all 21 landmarks per hand. Fingertip joints (thumb, index, middle, ring, pinky tips) are highlighted in green and drawn larger; the rest of the joints are drawn in white.
-- **`pose_demo.py`** — detects a single full-body pose and draws all 33 body landmarks in yellow.
+- **`hand_demo.py`** — ตรวจจับมือได้สูงสุด 2 ข้าง และวาดจุด landmark ทั้ง 21 จุดต่อมือ โดยจุดปลายนิ้ว (หัวแม่มือ, นิ้วชี้, นิ้วกลาง, นิ้วนาง, นิ้วก้อย) จะถูกไฮไลต์เป็นสีเขียวและวาดขนาดใหญ่กว่า ส่วนข้อต่ออื่น ๆ วาดเป็นสีขาว
+- **`pose_demo.py`** — ตรวจจับท่าทางร่างกายแบบเต็มตัวได้ 1 คน และวาดจุด landmark ทั้ง 33 จุดเป็นสีเหลือง
 
-Both scripts run detection asynchronously (`LIVE_STREAM` mode) so the video feed stays smooth while MediaPipe processes frames in the background.
+ทั้งสองสคริปต์ประมวลผลแบบอะซิงโครนัส (โหมด `LIVE_STREAM`) ทำให้วิดีโอยังคงลื่นไหลในขณะที่ MediaPipe ประมวลผลเฟรมอยู่เบื้องหลัง
 
-## Requirements
+## ความต้องการของระบบ
 
-- Python 3.14+
-- A webcam
-- [uv](https://docs.astral.sh/uv/) (recommended) or pip
+- Python 3.14 ขึ้นไป
+- กล้องเว็บแคม
+- [uv](https://docs.astral.sh/uv/) (แนะนำ) หรือ pip
 
-Dependencies (see [pyproject.toml](pyproject.toml)):
+ไลบรารีที่ใช้ (ดูใน [pyproject.toml](pyproject.toml)):
 
 - [`mediapipe`](https://pypi.org/project/mediapipe/) >= 0.10.35
 - [`opencv-python`](https://pypi.org/project/opencv-python/) >= 5.0.0.93
 
-## Project structure
+## โครงสร้างโปรเจกต์
 
 ```
 .
-├── hand_demo.py                       # Hand landmark detection demo
-├── pose_demo.py                       # Pose landmark detection demo
-├── main.py                            # Placeholder entry point
+├── hand_demo.py                       # สาธิตการตรวจจับ landmark ของมือ
+├── pose_demo.py                       # สาธิตการตรวจจับ landmark ของท่าทางร่างกาย
+├── main.py                            # จุดเริ่มต้นตัวอย่าง (placeholder)
 ├── models/
-│   ├── hand_landmarker.task           # MediaPipe hand landmarker model
-│   └── pose_landmarker_lite.task      # MediaPipe pose landmarker model (lite)
+│   ├── hand_landmarker.task           # โมเดล MediaPipe สำหรับตรวจจับมือ
+│   └── pose_landmarker_lite.task      # โมเดล MediaPipe สำหรับตรวจจับท่าทาง (lite)
 ├── pyproject.toml
 ├── uv.lock
 └── requirements.txt
 ```
 
-## Setup
+## การติดตั้ง
 
-Clone the repository and install dependencies:
+โคลนโปรเจกต์และติดตั้งไลบรารีที่จำเป็น:
 
 ```bash
 git clone https://github.com/pasunim/DT-508-Tasks-API.git
@@ -45,7 +45,7 @@ cd DT-508-Tasks-API
 uv sync
 ```
 
-`uv sync` creates a `.venv` and installs the locked dependencies from `uv.lock`. If you prefer plain `pip`:
+คำสั่ง `uv sync` จะสร้าง virtual environment (`.venv`) และติดตั้งไลบรารีตามเวอร์ชันที่ล็อกไว้ใน `uv.lock` ให้อัตโนมัติ หากต้องการใช้ `pip` แบบปกติแทน:
 
 ```bash
 python -m venv .venv
@@ -53,39 +53,39 @@ source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-The model files under `models/` are already included in this repo, so no separate download step is required.
+ไฟล์โมเดลในโฟลเดอร์ `models/` ถูกรวมมาในโปรเจกต์นี้แล้ว จึงไม่จำเป็นต้องดาวน์โหลดเพิ่มเติม
 
-## Usage
+## วิธีใช้งาน
 
-Run the hand landmark demo:
+รันสาธิตการตรวจจับมือ:
 
 ```bash
 uv run python hand_demo.py
 ```
 
-Run the pose landmark demo:
+รันสาธิตการตรวจจับท่าทางร่างกาย:
 
 ```bash
 uv run python pose_demo.py
 ```
 
-A window will open showing your webcam feed with landmarks overlaid in real time. Press **`ESC`** to close the window and stop the script.
+จะมีหน้าต่างเปิดขึ้นแสดงภาพจากกล้องเว็บแคมพร้อมจุด landmark ที่ซ้อนทับแบบเรียลไทม์ กด **`ESC`** เพื่อปิดหน้าต่างและหยุดโปรแกรม
 
-> **Note:** Grant camera access to your terminal/IDE if prompted by the OS — otherwise `cv2.VideoCapture(0)` will fail to read frames.
+> **หมายเหตุ:** หากระบบปฏิบัติการขอสิทธิ์เข้าถึงกล้อง ให้อนุญาตสิทธิ์ให้กับ terminal หรือ IDE ที่ใช้รัน มิฉะนั้น `cv2.VideoCapture(0)` จะไม่สามารถอ่านภาพจากกล้องได้
 
-## How it works
+## หลักการทำงาน
 
-Each demo follows the same pattern:
+ทั้งสองสคริปต์ทำงานตามรูปแบบเดียวกัน:
 
-1. Configures a `HandLandmarkerOptions` / `PoseLandmarkerOptions` object pointing at the bundled `.task` model file, running in `LIVE_STREAM` mode with an async `result_callback`.
-2. Opens the default webcam with `cv2.VideoCapture(0)`.
-3. On each loop iteration, converts the BGR frame from OpenCV to an RGB `mp.Image` and sends it to `detect_async` along with a timestamp.
-4. The callback (`process_result` / `process_pose`) stores the latest detection result in a module-level variable.
-5. The main loop reads the latest stored result (if any) and draws landmark circles onto the current frame with `cv2.circle`.
-6. The frame is flipped horizontally (mirror view) and displayed with `cv2.imshow`.
+1. ตั้งค่าออบเจ็กต์ `HandLandmarkerOptions` / `PoseLandmarkerOptions` โดยชี้ไปยังไฟล์โมเดล `.task` ที่แนบมาในโปรเจกต์ ทำงานในโหมด `LIVE_STREAM` พร้อม callback แบบอะซิงโครนัส (`result_callback`)
+2. เปิดกล้องเว็บแคมเริ่มต้นด้วย `cv2.VideoCapture(0)`
+3. ในแต่ละรอบของลูป จะแปลงเฟรมจากรูปแบบสี BGR (OpenCV) เป็น RGB แล้วห่อเป็น `mp.Image` ก่อนส่งเข้า `detect_async` พร้อม timestamp
+4. ฟังก์ชัน callback (`process_result` / `process_pose`) จะเก็บผลลัพธ์การตรวจจับล่าสุดไว้ในตัวแปรระดับโมดูล
+5. ลูปหลักจะอ่านผลลัพธ์ล่าสุดที่เก็บไว้ (ถ้ามี) แล้ววาดวงกลมของแต่ละ landmark ลงบนเฟรมปัจจุบันด้วย `cv2.circle`
+6. เฟรมจะถูกพลิกกลับด้านซ้าย-ขวา (mirror) แล้วแสดงผลด้วย `cv2.imshow`
 
-## Troubleshooting
+## แก้ปัญหาเบื้องต้น
 
-- **Black/frozen window or no landmarks detected**: make sure there's adequate lighting and your hand/body is fully in frame.
-- **`FileNotFoundError` for the `.task` model**: run the scripts from the project root so the relative path `models/...` resolves correctly.
-- **Camera permission errors on macOS**: go to *System Settings → Privacy & Security → Camera* and enable access for your terminal or IDE.
+- **หน้าต่างค้าง/มืด หรือไม่พบ landmark ใด ๆ**: ตรวจสอบว่าแสงสว่างเพียงพอ และมือ/ร่างกายอยู่ในกรอบภาพครบถ้วน
+- **เจอ `FileNotFoundError` ของไฟล์ `.task`**: ต้องรันสคริปต์จาก root ของโปรเจกต์ เพื่อให้ path แบบ relative (`models/...`) ถูกต้อง
+- **ปัญหาสิทธิ์การเข้าถึงกล้องบน macOS**: ไปที่ *การตั้งค่าระบบ → ความเป็นส่วนตัวและความปลอดภัย → กล้อง* แล้วเปิดสิทธิ์ให้กับ terminal หรือ IDE ที่ใช้งาน
