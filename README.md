@@ -53,7 +53,23 @@ source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-ไฟล์โมเดลในโฟลเดอร์ `models/` ถูกรวมมาในโปรเจกต์นี้แล้ว จึงไม่จำเป็นต้องดาวน์โหลดเพิ่มเติม
+ไฟล์โมเดลในโฟลเดอร์ `models/` ถูกรวมมาในโปรเจกต์นี้แล้ว จึงไม่จำเป็นต้องดาวน์โหลดเพิ่มเติม แต่หากต้องการดาวน์โหลดโมเดลใหม่ด้วยตนเอง (เช่น ต้องการอัปเดตเป็นเวอร์ชันล่าสุด) สามารถรันคำสั่งต่อไปนี้จาก root ของโปรเจกต์:
+
+**macOS / Linux (bash):**
+
+```bash
+mkdir -p models
+wget -q -O models/hand_landmarker.task https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/latest/hand_landmarker.task
+wget -q -O models/pose_landmarker_lite.task https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/latest/pose_landmarker_lite.task
+```
+
+**Windows (PowerShell):**
+
+```powershell
+New-Item -ItemType Directory -Force -Path models
+Invoke-WebRequest -Uri "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/latest/hand_landmarker.task" -OutFile "models\hand_landmarker.task"
+Invoke-WebRequest -Uri "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/latest/pose_landmarker_lite.task" -OutFile "models\pose_landmarker_lite.task"
+```
 
 ## วิธีใช้งาน
 
