@@ -71,6 +71,16 @@ Invoke-WebRequest -Uri "https://storage.googleapis.com/mediapipe-models/hand_lan
 Invoke-WebRequest -Uri "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/latest/pose_landmarker_lite.task" -OutFile "models\pose_landmarker_lite.task"
 ```
 
+**Windows (PowerShell / cmd, ใช้ `curl.exe` ที่มีมาให้ในตัว):**
+
+```powershell
+mkdir models
+curl.exe -o models\hand_landmarker.task https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/latest/hand_landmarker.task
+curl.exe -o models\pose_landmarker_lite.task https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/latest/pose_landmarker_lite.task
+```
+
+> ใน PowerShell คำสั่ง `curl` เป็น alias ของ `Invoke-WebRequest` ไม่ใช่ curl จริง จึงต้องระบุ `curl.exe` ให้ชัดเจนเพื่อเรียกใช้ curl ตัวจริงที่ติดตั้งมากับ Windows 10/11
+
 ## วิธีใช้งาน
 
 รันสาธิตการตรวจจับมือ:
